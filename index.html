@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>DT Contact Manager</title>
+        <link rel="stylesheet" href="css/style.css">
+    </head>
+    <body>
+        <div class="load">
+            <div class="title">
+                <h1>DT</h1>
+                <h1>Contacts</h1>
+                <h1>Manager</h1>
+            </div>
+        </div>
+        <div class="app">
+            <div class="top-bar">
+                <div class="search-icon"><i class="fa-solid fa-magnifying-glass fa-2x"></i></div>
+                <input type="text" name="search" id="contact-search" class="search" placeholder="Search">
+                <div class="options"><i class="fa-solid fa-ellipsis fa-2x"></i></div>
+                <button class="my-profile">My Profile ></button>
+            </div>
+            <div class="contacts-view">
+            </div>
+            <div class="favorites invisible opened">
+            </div>
+            <div class="search-view invisible"></div>
+            <div class="dail-search invisible"></div>
+            <div class="create-contact-form invisible opened">
+                <form action="" method="post">
+                    <div class="form-top">
+                        <div class="form-top-bar">
+                            <button class="form-back"><i class="fa-solid fa-less-than fa-2x"></i></button>
+                            <p>Create new contact</p>
+                            <button class="save">Save&nbsp;<i class="fa-solid fa-save fa-2x"></i></button>
+                        </div>
+                        <i class="fa-regular fa-user fa-10x"></i>
+                    </div>
+                    <div class="form-bottom">
+                        <div class="name">
+                            <i class="fa-solid fa-user"></i>
+                            <input type="text" name="new-contact-name" class="new-contact-name" placeholder="Contact Name" required>
+                        </div>
+                        <div class="numbers">
+                            <i class="fa-solid fa-phone"></i>
+                            <input type="number" name="phone-number" class="phone-number" placeholder="Phone Number" required>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="dail">
+                <input class="dail-display">
+                <table class="dail-buttons">
+                        <tr>
+                            <td><button class="dail-digit">1</button></td>
+                            <td><button class="dail-digit">2</button></td>
+                            <td><button class="dail-digit">3</button></td>
+                        </tr>
+                        <tr>
+                            <td><button class="dail-digit">4</button></td>
+                            <td><button class="dail-digit">5</button></td>
+                            <td><button class="dail-digit">6</button></td>
+                        </tr>
+                        <tr>
+                            <td><button class="dail-digit">7</button></td>
+                            <td><button class="dail-digit">8</button></td>
+                            <td><button class="dail-digit">9</button></td>
+                        </tr>
+                        <tr>
+                            <td><button class="dail-digit">*</button></td>
+                            <td><button class="dail-digit">0</button></td>
+                            <td><button class="dail-digit">#</button></td>
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td><div class="dailpad down"><i class="fa-solid fa-arrow-down fa-2x"></i></div></td>
+                            <td class="cancel-h"><div class="cancel"><i class="fa-solid fa-delete-left"></i></div></td>
+                        </tr>
+                </table>
+            </div>
+            <div class="bottom-bar">
+                <div class="dailpad up closed"><i class="fa-solid fa-2x fa-keyboard"></i></div>
+                <div class="base-buttons">
+                    <button class="contacts-tab active"><i class="fa-solid fa-address-book"></i><br>Contacts</button><button class="favorites-tab"><i class="fa-solid fa-star"></i><br>Favorites</button>
+                </div>
+            </div>
+        </div>
+        <script src="contacts.js"></script>
+    </body>
+</html>

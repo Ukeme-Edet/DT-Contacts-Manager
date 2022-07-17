@@ -1,0 +1,494 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>DT Contact Manager</title>
+        <style>
+            body {
+                margin: 0;
+                padding: 0;
+                background: white;
+                position: absolute;
+                top: 0;
+                bottom: 0;
+                right: 0;
+                left: 0;
+            }
+
+            .load {
+                background: #00fa00;
+                color: white;
+                position: absolute;
+                left: 0;
+                right: 0;
+                top: 0;
+                bottom: 0;
+                font-size: x-large;
+                font-family: "harlow solid";
+                transition: all 1s ease-in-out;
+            }
+
+            .title {
+                width: 60%;
+                height: 70%;
+                margin: 100px 20%;
+            }
+
+            .app {
+                min-height: 100%;
+                font-size: 1em;
+                position: absolute;
+                left: 0;
+                right: 0;
+                opacity: 0;
+                transition: all .5s ease-in-out;
+            }
+
+            .top-bar {
+                display: inline-block;
+                position: static;
+                width: 96%;
+                height: 55px;
+                left: 0;
+                right: 0;
+                top: 0;
+                padding: 2%;
+                border-bottom: 2px solid grey;
+                box-shadow: 2px 3px 20px -10px;
+            }
+
+            .search-icon {
+                display: block;
+                width: 10%;
+                height: 30px;
+                float: left;
+            }
+
+            .search {
+                width: 76%;
+                height: 30px;
+                display: block;
+                float: left;
+                border-radius: 15px;
+                font-size: 20px;
+                border: 1px solid grey;
+            }
+
+            .options {
+                display: block;
+                width: 10%;
+                height: 30px;
+                float: left;
+            }
+
+            .my-profile {
+                height: 20px;
+                width: 100%;
+                font-size: 18px;
+                border: none;
+                margin: 2.5px 0;
+                background: white;
+            }
+
+            .invisible {
+                display: none;
+            }
+
+            .contacts-view {
+                padding: 5%;
+                height: 90%;
+                position: absolute;
+                left: 0;
+                right: 0;
+                bottom: 0%;
+                top: 10%;
+                background: #ebebeb;
+                z-index: -1;
+            }
+
+            .contact-plate {
+                margin-bottom: 15px;
+                width: 100%;
+                height: 60px;
+                box-sizing: border-box;
+                border: 1px solid grey;
+                background: white;
+                border-radius: 10px;
+                display: table;
+                content: " ";
+                padding: 5px;
+            }
+
+            .contact-icon {
+                width: 41px;
+                display: inline-block;
+                margin: 0;
+                margin-top: 1.12px;
+            }
+
+            .contact-image {
+                max-width: 100%;
+                height: 90%;
+            }
+
+            .contact-name {
+                text-align: left;
+                display: inline-block;
+                width: 73%;
+            }
+
+            .contact-function {
+                width: 9.6%;
+                height: 48px;
+                float: right;
+            }
+
+            .contact-info {
+                height: 25px;
+                width: 25px;
+                margin-top: 11.5px;
+                border-radius: 12.5px;
+                border: #00fa00 solid 1.5px;
+            }
+
+            .dail-back {
+                height: 150px;
+                background: white;
+                display: table;
+                content: " ";
+            }
+
+            .dail {
+                width: 100%;
+                position: fixed;
+                height: 0;
+                bottom: 60px;
+                background: white;
+                transition: all .25s ease-in-out;
+            }
+
+            .dail-open {
+                height: 288px;
+            }
+
+            .dail-display {
+                width: 100%;
+                box-sizing: border-box;
+                height: 48px;
+                border: none;
+                font-size: 30px;
+                border-top: 2px solid gray;
+                border-bottom: 2px solid grey;
+                text-align: center;
+                margin-bottom: 5px;
+            }
+
+            .dail-display:focus-visible, .search:focus-visible {
+                outline: none;
+            }
+
+            .dail-buttons {
+                width: 100%;
+                height: 240px;
+            }
+
+            .dail-digit {
+                width: 100%;
+                border: none;
+                border-radius: 10px;
+                height: 100%;
+                font-size: 25px;
+            }
+
+            .cancel-h {
+                padding: 15px;
+                width: 33.33%;
+            }
+
+            .cancel {
+                border: none;
+                height: 30px;
+                width: 30px;
+                margin: 0 37%;
+            }
+
+            .favorites {
+                position: absolute;
+                top: 10%;
+                bottom: 0;
+                left: 0;
+                right: 0;
+                height: 90%;
+                background: #ebebeb;
+                z-index: -1;
+            }
+
+            .favorites-card {
+                width: 45.5%;
+                margin: 5% 3%;
+                float: left;
+                height: 150px;
+                background: white;
+                border-radius: 20px;
+                padding: 20px;
+                box-sizing: border-box;
+                box-shadow: 2px 3px 20px -10px;
+            }
+
+            .favorites-card:nth-last-of-type(even) {
+                margin-right: 0;
+            }
+
+            .bottom-bar {
+                position: fixed;
+                width: 100%;
+                max-height: 130px;
+                bottom: 0;
+                left: 0;
+                right: 0;
+            }
+
+            .dailpad {
+                height: 60px;
+                background: #00fa00;
+                border-radius: 30px;
+                transition: all .1s ease-in-out;
+                border: none;
+                margin-bottom: 8px;
+                box-shadow: 2px 3px 20px -10px;
+            }
+
+            .up {
+                width: 60px;
+                position: relative;
+                top: 0;
+                left: 10px;
+            }
+
+            .down {
+                width: 100%;
+            }
+
+            .closed {
+                opacity: 1;
+            }
+
+            .opened {
+                opacity: 0;
+            }
+
+            .base-buttons {
+                position: relative;
+                bottom: 0;
+                border-top: 2px solid gray;
+                box-shadow: 2px 3px 20px -10px;
+            }
+
+            .contacts-tab, .favorites-tab {
+                border: none;
+                width: 50%;
+                height: 60px;
+                background: white;
+                transition: all .25s ease-in-out;
+            }
+
+            .active {
+                color: #00fa00;
+            }
+        </style>
+    </head>
+    <body>
+        <div class="load">
+            <div class="title">
+                <h1>DT</h1>
+                <h1>Contacts</h1>
+                <h1>Manager</h1>
+            </div>
+        </div>
+        <div class="app">
+            <div class="contacts-view">
+                <div class="contact-plate">
+                    <figure class="contact-icon">
+                        <img class="contact-image" src="./tumblr.jpg">
+                    </figure>
+                    <p class="contact-name"></p>
+                    <div class="contact-function">
+                        <button class="contact-info"></button>
+                    </div>
+                </div>
+            </div>
+            <div class="favorites invisible">
+                <div class="favorites-card">Name1</div>
+                <div class="favorites-card">Name2</div>
+                <div class="favorites-card">Name2</div>
+                <div class="favorites-card">Name2</div>
+            </div>
+            <div class="top-bar">
+                <div class="search-icon"></div>
+                <input type="text" name="search" id="contact-search" class="search" placeholder="Search">
+                <div class="options"></div>
+                <button class="my-profile">My Profile ></button>
+            </div>
+            <div class="dail">
+                <input class="dail-display">
+                <table class="dail-buttons">
+                        <tr>
+                            <td><button class="dail-digit">1</button></td>
+                            <td><button class="dail-digit">2</button></td>
+                            <td><button class="dail-digit">3</button></td>
+                        </tr>
+                        <tr>
+                            <td><button class="dail-digit">4</button></td>
+                            <td><button class="dail-digit">5</button></td>
+                            <td><button class="dail-digit">6</button></td>
+                        </tr>
+                        <tr>
+                            <td><button class="dail-digit">7</button></td>
+                            <td><button class="dail-digit">8</button></td>
+                            <td><button class="dail-digit">9</button></td>
+                        </tr>
+                        <tr>
+                            <td><button class="dail-digit">*</button></td>
+                            <td><button class="dail-digit">0</button></td>
+                            <td><button class="dail-digit">#</button></td>
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td><button class="dailpad down">|</button></td>
+                            <td class="cancel-h"><button class="cancel">&lt;-</button></td>
+                        </tr>
+                </table>
+            </div>
+            <div class="bottom-bar">
+                <button class="dailpad up closed"></button>
+                <div class="base-buttons">
+                    <button class="contacts-tab active">Contacts</button><button class="favorites-tab">Favorites</button>
+                </div>
+            </div>
+        </div>
+        <script>
+            let contactsView = document.querySelector(".contacts-view");
+            let contactPlate = document.querySelector(".contact-plate");
+            let dailpadUp = document.querySelector(".up");
+            let dailpadDown = document.querySelector(".down");
+            let dail = document.querySelector(".dail");
+            let dailDisplay = document.querySelector(".dail-display");
+            let dailButtons = document.querySelectorAll(".dail-digit");
+            let cancel = document.querySelector(".cancel");
+            let load = document.querySelector(".load");
+            let app = document.querySelector(".app");
+            let contactsTab = document.querySelector(".contacts-tab");
+            let favoritesTab = document.querySelector(".favorites-tab");
+            let favorites = document.querySelector(".favorites");
+            let cancelTimeOut;
+            // document.querySelector("input").addEventListener("touchstart")
+
+            document.addEventListener("DOMContentLoaded", () => {
+                setTimeout(() => {
+                    load.classList.add("opened");
+                }, 1000);
+                setTimeout(() => {
+                    load.style.display = "none";
+                    app.style.opacity = "1";
+                }, 2000);
+            });
+
+            dailpadUp.addEventListener("click", () => {
+                fade(dailpadUp);
+                setTimeout(() => {
+                    dailpadUp.style.display = "none";
+                    dailTransition();
+                }, 100);
+            });
+
+            dailpadDown.addEventListener("click", () => {
+                dailTransition();
+                setTimeout(() => {
+                    dailpadUp.style.display = "block";
+                    fade(dailpadUp);
+                }, 250);
+            });
+
+            dailDisplay.addEventListener("focus", event => {
+                event.preventDefault();
+                dailDisplay.blur();
+            });
+
+            dailButtons.forEach(button => {
+                button.addEventListener("click", event => {
+                    event.preventDefault();
+                    dailDisplay.value += button.textContent;
+                    dailDisplay.focus();
+                });
+            });
+
+            cancel.addEventListener("touchstart", (event) => {
+                let values = dailDisplay.value.split("");
+                values.pop();
+                dailDisplay.value = values.join("");
+                cancelTimeOut = setTimeout(() => {
+                    dailDisplay.value = "";
+                }, 750);
+            });
+
+            cancel.addEventListener("touchend", (event) => {
+                clearTimeout(cancelTimeOut);
+            });
+
+            cancel.addEventListener("mousedown", (event) => {
+                let values = dailDisplay.value.split("");
+                values.pop();
+                dailDisplay.value = values.join("");
+                cancelTimeOut = setTimeout(() => {
+                    dailDisplay.value = "";
+                }, 750);
+            });
+
+            cancel.addEventListener("mouseup", (event) => {
+                clearTimeout(cancelTimeOut);
+            });
+
+            contactsTab.addEventListener("click", () => {
+                if (contactsTab.classList.contains("active") && !contactsTab.classList.contains("invisible")) {
+                    return;
+                } else {
+                    contactsTab.classList.add("active");
+                    contactsView.classList.remove("invisible");
+                    favoritesTab.classList.remove("active");
+                    favorites.classList.add("invisible");
+                }
+            });
+
+            favoritesTab.addEventListener("click", () => {
+                if (favoritesTab.classList.contains("active") && !favoritesTab.classList.contains("invisible")) {
+                    return;
+                } else {
+                    favoritesTab.classList.add("active");
+                    favorites.classList.remove("invisible");
+                    contactsTab.classList.remove("active");
+                    contactsView.classList.add("invisible");
+                }
+            });
+
+            function fade(element) {
+                if (!element.classList.contains("opened")) {
+                    element.classList.add("opened");
+                    element.classList.remove("closed");
+                } else {
+                    element.classList.remove("opened");
+                    element.classList.add("closed");
+                }
+            }
+
+            function dailTransition() {
+                if (!dail.classList.contains("dail-open")) {
+                    dail.classList.add("dail-open");
+                } else {
+                    dail.classList.remove("dail-open");
+                }
+            }
+        </script>
+    </body>
+</html>

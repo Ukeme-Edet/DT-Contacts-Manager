@@ -1,0 +1,649 @@
+body {
+    margin: 0;
+    padding: 0;
+    background: white;
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    right: 0;
+    left: 0;
+}
+
+.load {
+    background: #00fa00;
+    color: white;
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    font-size: x-large;
+    font-family: "harlow solid";
+    transition: all 1s ease-in-out;
+}
+
+.title {
+    width: 60%;
+    height: 70%;
+    margin: 100px 20%;
+}
+
+.app {
+    min-height: 100%;
+    font-size: 1em;
+    position: absolute;
+    left: 0;
+    right: 0;
+    opacity: 0;
+    transition: all .5s ease-in-out;
+}
+
+.top-bar {
+    display: inline-block;
+    position: fixed;
+    width: 100%;
+    height: 80px;
+    left: 0;
+    right: 0;
+    top: 0;
+    padding: 2% 0;
+    border-bottom: 2px solid grey;
+    background: white;
+    z-index: 4;
+    box-shadow: 2px 3px 20px -10px;
+}
+
+.search-icon {
+    display: block;
+    text-align: center;
+    width: 12.5%;
+    height: 30px;
+    float: left;
+}
+
+.search {
+    width: 73.1%;
+    height: 30px;
+    display: block;
+    float: left;
+    border-radius: 15px;
+    font-size: 20px;
+    border: 1px solid grey;
+    transition: all .1s ease-in-out;
+}
+
+.options {
+    display: block;
+    width: 12.5%;
+    height: 30px;
+    float: left;
+    transition: all .11s ease-in-out;
+    text-align: center;
+    box-sizing: border-box;
+}
+
+.my-profile {
+    height: 50px;
+    width: 100%;
+    font-size: 18px;
+    border: none;
+    margin: 2.5px 0;
+    background: white;
+}
+
+.invisible {
+    display: none;
+}
+
+.contact-create {
+    width: 100%;
+    border: none;
+    padding: 10px;
+}
+
+.contacts-view {
+    padding: 115px 5% 0 5%;
+    height: 100%;
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0%;
+    top: 0;
+    background: #ebebeb;
+    box-sizing: border-box;
+    transition: all .5s ease-in-out;
+    z-index: 2;
+}
+
+.contact-plate {
+    margin-bottom: 15px;
+    width: 100%;
+    height: 60px;
+    box-sizing: border-box;
+    border: 1px solid grey;
+    background: white;
+    border-radius: 10px;
+    display: table;
+    content: " ";
+    padding: 5px;
+    box-shadow: 2px 3px 20px -10px;
+}
+
+.contact-icon {
+    width: 50px;
+    height: 43px;
+    display: inline-block;
+    margin: 0;
+    margin-top: 1.12px;
+    border-radius: 27px;
+    padding-top: 7px;
+    text-align: center;
+    border: 1px solid gray;
+}
+
+.contact-image {
+    max-width: 100%;
+    height: 90%;
+}
+
+.contact-name {
+    text-align: left;
+    display: inline-block;
+    padding-left: 30px;
+    box-sizing: border-box;
+    width: 70%;
+}
+
+.contact-info {
+    height: 25px;
+    width: 25px;
+    margin-top: 11.5px;
+    border-radius: 12.5px;
+    border: #00fa00 solid 1.5px;
+}
+
+.dail-back {
+    height: 150px;
+    background: white;
+    display: table;
+    content: " ";
+}
+
+.dail {
+    width: 100%;
+    position: fixed;
+    height: 0;
+    bottom: 60px;
+    background: white;
+    transition: all .25s ease-in-out;
+    z-index: 2;
+}
+
+.dail-open {
+    height: 288px;
+}
+
+.dail-display {
+    width: 100%;
+    box-sizing: border-box;
+    height: 48px;
+    border: none;
+    font-size: 30px;
+    border-top: 2px solid gray;
+    border-bottom: 2px solid grey;
+    text-align: center;
+    margin-bottom: 5px;
+}
+
+.dail-display:focus-visible, .search:focus-visible {
+    outline: none;
+}
+
+.dail-buttons {
+    width: 100%;
+    height: 240px;
+}
+
+.dail-digit {
+    width: 100%;
+    border: none;
+    border-radius: 10px;
+    height: 100%;
+    font-size: 25px;
+}
+
+.cancel-h {
+    padding: 15px;
+    width: 33.33%;
+}
+
+.cancel {
+    border: none;
+    height: 40px;
+    width: 40px;
+    margin: 0 auto;
+    border-radius: 20px;
+    text-align: center;
+    background: #ebebeb;
+}
+
+.cancel > i {
+    margin-top: 12px;
+}
+
+.favorites {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    padding: 30% 0 0 0;
+    height: 100%;
+    background: #ebebeb;
+    box-sizing: border-box;
+    transition: all .5s ease-in-out;
+}
+
+.favorites-card {
+    width: 45.5%;
+    margin: 5% 3%;
+    float: left;
+    text-align: center;
+    height: 150px;
+    background: white;
+    border-radius: 20px;
+    padding: 30px;
+    box-sizing: border-box;
+    box-shadow: 2px 3px 20px -10px;
+}
+
+.favorites-card > i {
+    margin-bottom: 20px;
+    color: gray;
+}
+
+.favorites-card:nth-last-of-type(even) {
+    margin-right: 0;
+}
+
+.bottom-bar {
+    position: fixed;
+    width: 100%;
+    max-height: 140px;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    z-index: 2;
+}
+
+.search-view {
+    width: 100%;
+    z-index: 3;
+    position: absolute;
+    top: 90px;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: white;
+}
+
+.contactS {
+    width: 90%;
+    padding: 5%;   
+}
+
+.dailpad {
+    height: 60px;
+    background: #00fa00;
+    color: white;
+    border-radius: 30px;
+    transition: all .1s ease-in-out;
+    border: none;
+    text-align: center;
+    margin-bottom: 8px;
+    box-shadow: 2px 3px 20px -10px;
+}
+
+.dailpad > i {
+    margin-top: 14px;
+}
+
+td {
+    width: 33.33%;
+}
+
+.up {
+    width: 60px;
+    position: relative;
+    top: 0;
+    left: 10px;
+}
+
+.down {
+    width: 100%;
+}
+
+.closed {
+    opacity: 1;
+}
+
+.opened {
+    opacity: 0;
+}
+
+.base-buttons {
+    position: relative;
+    bottom: 0;
+    border-top: 2px solid gray;
+    box-shadow: 2px 3px 20px -10px;
+}
+
+.contacts-tab, .favorites-tab {
+    border: none;
+    width: 50%;
+    height: 60px;
+    background: white;
+    transition: all .25s ease-in-out;
+}
+
+.active {
+    color: #00fa00;
+}
+
+.create-contact-form {
+    width: 100%;
+    min-height: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 4;
+    background: white;
+    transition: all .5s ease-in-out;
+}
+
+.create-contact-form > form {
+    height: 100%;
+}
+
+.form-top {
+    height:  250px;
+    width: 100%;
+    background: #00fa00;
+    border-radius: 25px;
+}
+
+.form-top-bar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 50px;
+    background: white;
+    font-weight: bolder;
+}
+
+.form-top-bar > button {
+    border: none;
+    height: 50px;
+    color: #00fa00;
+    background: white;
+    font-weight: bolder;
+    vertical-align: middle;
+}
+
+.form-top-bar > .form-back {
+    width: 15%;
+    float: left;
+}
+
+.form-top-bar > p {
+    width: 65%;
+    float: left;
+    font-size: large;
+    padding-left: 30px;
+    box-sizing: border-box;
+}
+
+.form-top-bar > .save {
+    width: 20%;
+    float: left;
+}
+
+
+.form-top > i {
+    padding: 20px;
+    width: 100%;
+    box-sizing: border-box;
+    text-align: center;
+    margin-top: 50px;
+}
+
+.form-bottom {
+    width: 90%;
+    margin: 20px 5%;
+    border-radius: 20px;
+    background: #ebebeb;
+    box-sizing: border-box;
+    padding: 5%;
+}
+
+.form-bottom > div {
+    padding: 2.5%;
+    font-size: 25px;
+}
+
+.form-bottom > .name {
+    height: 35px;
+}
+
+.form-bottom > .numbers > input {
+    margin-left: 17.5%;
+}
+
+.form-bottom > .numbers > input:first-of-type {
+    margin-left: 0;
+}
+
+.form-bottom i {
+    width: 15%;
+    vertical-align: middle;
+}
+
+.form-bottom input {
+    height: 25px;
+    width: 80%;
+    border: none;
+    background: #ebebeb;
+    border-bottom: 2px solid white;
+    transition: all .25s ease-in-out;
+}
+
+.form-bottom input:focus {
+    border-color: #00fa00;
+}
+
+.form-bottom input:focus-visible {
+    outline: none;
+}
+
+.top div {
+    text-align: center;
+}
+
+.contact-display {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: white;
+    z-index: 4;
+    transition: all .5s ease-in-out;
+}
+
+.contact-display > .top {
+    height: 250px;
+    background: #00fa00;
+    color: white;
+    text-align: center;
+    border-radius: 0 0 25px 25px;
+}
+
+.contact-display > i {
+    vertical-align: middle;
+}
+
+.contact-display > .top > i {
+padding-top: 25px;
+}
+
+.contact-display > .top > div {
+    width: 15%;
+    height: 40px;
+    font-size: 30px;
+    float: left;
+}
+
+.contact-display > .top > div:first-of-type {
+    margin-right: 40%;
+}
+
+.top > div > i {
+    vertical-align: middle;
+}
+
+.contact-display > .bottom {
+    padding: 15px;
+    background: #ebebeb;
+    border-radius: 20px;
+    width: 90%;
+    margin: 30px 5%;
+    box-sizing: border-box;
+}
+
+.contact-display > .bottom span {
+    margin-left: 20px;
+}
+
+.contact-display > .bottom span:first-child {
+    margin-left: 0;
+}
+
+@font-face {
+    font-family: 'Font Awesome 6 Free';
+    font-style: normal;
+    font-weight: 400;
+    font-display: block;
+    src: url("../webfonts/fa-regular-400.woff2") format("woff2"), url("../webfonts/fa-regular-400.ttf") format("truetype"); }
+
+@font-face {
+  font-family: 'Font Awesome 6 Free';
+  font-style: normal;
+  font-weight: 900;
+  font-display: block;
+  src: url("../webfonts/fa-solid-900.woff2") format("woff2"), url("../webfonts/fa-solid-900.ttf") format("truetype"); }
+
+@font-face {
+  font-family: "Font Awesome 5 Free";
+  font-display: block;
+  font-weight: 900;
+  src: url("../webfonts/fa-solid-900.woff2") format("woff2"), url("../webfonts/fa-solid-900.ttf") format("truetype"); }
+
+  @font-face {
+  font-family: "Font Awesome 5 Free";
+  font-display: block;
+  font-weight: 400;
+  src: url("../webfonts/fa-regular-400.woff2") format("woff2"), url("../webfonts/fa-regular-400.ttf") format("truetype"); }
+
+@font-face {
+  font-family: "FontAwesome";
+  font-display: block;
+  src: url("../webfonts/fa-solid-900.woff2") format("woff2"), url("../webfonts/fa-solid-900.ttf") format("truetype"); }
+
+@font-face {
+  font-family: "FontAwesome";
+  font-display: block;
+  src: url("../webfonts/fa-regular-400.woff2") format("woff2"), url("../webfonts/fa-regular-400.ttf") format("truetype");
+  unicode-range: U+F003,U+F006,U+F014,U+F016-F017,U+F01A-F01B,U+F01D,U+F022,U+F03E,U+F044,U+F046,U+F05C-F05D,U+F06E,U+F070,U+F087-F088,U+F08A,U+F094,U+F096-F097,U+F09D,U+F0A0,U+F0A2,U+F0A4-F0A7,U+F0C5,U+F0C7,U+F0E5-F0E6,U+F0EB,U+F0F6-F0F8,U+F10C,U+F114-F115,U+F118-F11A,U+F11C-F11D,U+F133,U+F147,U+F14E,U+F150-F152,U+F185-F186,U+F18E,U+F190-F192,U+F196,U+F1C1-F1C9,U+F1D9,U+F1DB,U+F1E3,U+F1EA,U+F1F7,U+F1F9,U+F20A,U+F247-F248,U+F24A,U+F24D,U+F255-F25B,U+F25D,U+F271-F274,U+F278,U+F27B,U+F28C,U+F28E,U+F29C,U+F2B5,U+F2B7,U+F2BA,U+F2BC,U+F2BE,U+F2C0-F2C1,U+F2C3,U+F2D0,U+F2D2,U+F2D4,U+F2DC; }
+
+@font-face {
+  font-family: "FontAwesome";
+  font-display: block;
+  src: url("../webfonts/fa-v4compatibility.woff2") format("woff2"), url("../webfonts/fa-v4compatibility.ttf") format("truetype");
+  unicode-range: U+F041,U+F047,U+F065-F066,U+F07D-F07E,U+F080,U+F08B,U+F08E,U+F090,U+F09A,U+F0AC,U+F0AE,U+F0B2,U+F0D0,U+F0D6,U+F0E4,U+F0EC,U+F10A-F10B,U+F123,U+F13E,U+F148-F149,U+F14C,U+F156,U+F15E,U+F160-F161,U+F163,U+F175-F178,U+F195,U+F1F8,U+F219,U+F250,U+F252,U+F27A; }
+
+.fa-solid, .fa-regular, .fa-light {
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-font-smoothing: antialiased;
+  display: var(--fa-display, inline-block);
+  font-style: normal;
+  font-variant: normal;
+  line-height: 1;
+  text-rendering: auto;
+}
+
+.fa-solid {
+    font-family: 'Font Awesome 6 Free';
+    font-weight: 900; }
+
+.fa-magnifying-glass::before {
+    content: "\f002"; }
+
+.fa-2x {
+  font-size: 2em; }
+
+.fa-3x {
+  font-size: 3em; }
+
+.fa-ellipsis::before {
+  content: "\f141"; }
+
+.fa-less-than::before {
+  content: "\3c"; }
+
+.fa-save::before {
+  content: "\f0c7"; }
+
+.fa-user::before {
+  content: "\f007"; }
+
+.fa-10x {
+  font-size: 10em; }
+
+.fa-phone::before {
+  content: "\f095"; }
+
+.fa-arrow-down::before {
+  content: "\f063"; }
+
+.fa-delete-left::before {
+  content: "\f55a"; }
+
+.fa-keyboard::before {
+  content: "\f11c"; }
+
+.fa-address-book::before {
+  content: "\f2b9"; }
+
+.fa-star::before {
+  content: "\f005"; }
+
+.fa-regular {
+  font-family: 'Font Awesome 6 Free';
+  font-weight: 400; }
+
+:root, :host {
+  --fa-font-regular: normal 400 1em/1 "Font Awesome 6 Free"; }
+
+:root, :host {
+  --fa-font-solid: normal 900 1em/1 "Font Awesome 6 Free"; }
+
+.fa-pen-to-square::before {
+  content: "\f044"; }
+
+.fa-trash::before {
+  content: "\f1f8"; }
+
+.fa-arrow-left::before {
+  content: "\f060"; }
