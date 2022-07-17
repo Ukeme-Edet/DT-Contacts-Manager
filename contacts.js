@@ -131,7 +131,7 @@ search.addEventListener("click", () => {
     });
     searchIcon.addEventListener("click", () => {
         search.blur();
-        search.style.width = "73.4%";
+        search.style.width = "73.1%";
         search.value = "";
         setTimeout(() => {
             options.style.width = "12.5%";
@@ -149,6 +149,8 @@ search.addEventListener("click", () => {
     });
     searchStart();
 });
+
+options.addEventListener("click", resetApp);
 
 displayContacts();
 displayFavorites();
@@ -381,12 +383,11 @@ function initialiseCreateContact(contact=null) {
         }
     }
 
-    formBack.addEventListener("click", event => {
-        event.preventDefault();
-        formBackClick();
-    });
+    formBack.addEventListener("click", formBackClick);
     
-    save.addEventListener("click", event => {
+    save.addEventListener("click", saveEvent);
+
+    function saveEvent(event) {
         event.preventDefault();
         if (contactValidate(contact)) {
             let name = newContactName.value;
@@ -394,17 +395,19 @@ function initialiseCreateContact(contact=null) {
             for (let numberField of numberFields) {
                 if (numberField.value != "") phoneNumbers.push(numberField.value);
             }
-            let newContact = {name, phoneNumbers, "favorite": contact ? contact.favorite : false}
+            let newContact = {name, phoneNumbers, "favorite": contact ? contact.favorite : false};
             contact ? contacts[contacts.indexOf(contact)] = newContact : contacts.push(newContact);
             contacts.sort((a, b) => a.name[0] > b.name[0] ? 1 : -1);
             localStorage.setItem("contacts", JSON.stringify(contacts));
             formBackClick();
         }
-    });
+    }
 
     function formBackClick() {
         newContactName.value = "";
         numberFields.forEach(numberField => numberField.value = "");
+        formBack.removeEventListener("click", formBackClick);
+        save.removeEventListener("click", saveEvent);
         contactForm.classList.add("opened");
         setTimeout(() => contactForm.classList.add("invisible"), 500);
         displayContacts();
@@ -421,7 +424,7 @@ function initialiseCreateContact(contact=null) {
         } else if (Array.from(numberFields).every(numberField => numberField.value == "")) {
             alert("Contact Number Cannot Be Blank");
             return false;
-        } else if (Array.from(numberFields).some(numberField => contacts.some(contacta => contacta.phoneNumbers.some(phoneNumbers => phoneNumbers == numberField.value))) && !contact.phoneNumbers.some(number => Array.from(numberFields).some(numberField => numberField.value == number))) {
+        } else if (Array.from(numberFields).some(numberField => contacts.some(contacta => contacta.phoneNumbers.some(phoneNumbers => phoneNumbers == numberField.value))) && contact ? !contact.phoneNumbers.some(number => Array.from(numberFields).some(numberField => numberField.value == number)) : false) {
             alert("Contact number already saved");
             return false;
         } else {
@@ -464,4 +467,14 @@ function createFavoriteCard(contact) {
 function contactEdit(index) {
     let currentContact = contacts[index];
     initialiseCreateContact(currentContact);
+}
+
+function resetApp() {
+    let response = prompt("To reset the app, enter \"Y\", otherwise leave blank or enter anything :)");
+    if (response == "Y") {
+        contacts = [];
+        localStorage.setItem("contacts", JSON.stringify(contacts));
+        displayContacts();
+        displayFavorites();
+    }
 }
