@@ -102,13 +102,14 @@ body {
 }
 
 .contacts-view {
-    padding: 115px 5% 0 5%;
-    height: 100%;
+    padding: 20px 5% 130px 5%;
     position: absolute;
+    height: 100%;
+    scroll-behavior: smooth;
+    overflow: scroll;
     left: 0;
     right: 0;
-    bottom: 0%;
-    top: 0;
+    top: 80px;
     background: #ebebeb;
     box-sizing: border-box;
     transition: all .5s ease-in-out;
@@ -269,6 +270,7 @@ body {
 .bottom-bar {
     position: fixed;
     width: 100%;
+    background: linear-gradient(rgb(235, 235, 235, 0) 0%, rgba(234, 234, 234, 1) 40%);
     max-height: 140px;
     bottom: 0;
     left: 0;
