@@ -418,13 +418,13 @@ function initialiseCreateContact(contact=null) {
         if (newContactName.value == "") {
             alert("Contact Name Cannot Be Blank");
             return false;
-        } else if (contacts.some(contacta => contacta.name == newContactName.value) && !contact.name == newContactName.value) {
+        } else if (!contact ? contacts.some(contacta => contacta.name == newContactName.value) : !contact.name == newContactName.value) {
             alert("Contact Name Already Used");
             return false;
         } else if (Array.from(numberFields).every(numberField => numberField.value == "")) {
             alert("Contact Number Cannot Be Blank");
             return false;
-        } else if (Array.from(numberFields).some(numberField => contacts.some(contacta => contacta.phoneNumbers.some(phoneNumbers => phoneNumbers == numberField.value))) && contact ? !contact.phoneNumbers.some(number => Array.from(numberFields).some(numberField => numberField.value == number)) : false) {
+        } else if (Array.from(numberFields).some(numberField => contacts.some(contact => contact.phoneNumbers.some(phoneNumber => phoneNumber == numberField.value))) && !(contact ? contacts.some(contacta => contacta.phoneNumbers.some(phoneNumber => contact.phoneNumbers.some(contactNum => contactNum == phoneNumber))) : false)) {
             alert("Contact number already saved");
             return false;
         } else {
