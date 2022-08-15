@@ -1,4 +1,4 @@
-let contactsView = document.querySelector(".contacts-view"), contactPlate = document.querySelector(".contact-plate"), dailpadUp = document.querySelector(".up"), dailpadDown = document.querySelector(".down"), dail = document.querySelector(".dail"), dailDisplay = document.querySelector(".dail-display"), dailButtons = document.querySelectorAll(".dail-digit"), cancel = document.querySelector(".cancel"), load = document.querySelector(".load"), app = document.querySelector(".app"), contactsTab = document.querySelector(".contacts-tab"), favoritesTab = document.querySelector(".favorites-tab"), favorites = document.querySelector(".favorites"), search = document.querySelector(".search"), searchView = document.querySelector(".search-view"), dailSearch = document.querySelector(".dail-search"), options = document.querySelector(".options"), searchIcon = document.querySelector(".search-icon"), contacts, views = [contactsView, favorites], template = document.querySelector(".contact-plate"), favoriteTemplate = document.querySelector(".favorites-card"), contactForm = document.querySelector(".create-contact-form"), newContactName = document.querySelector(".new-contact-name"), numbers = contactForm.querySelector(".numbers"), numberFieldTemp = document.querySelector(".phone-number"), numberFields = document.querySelectorAll(".phone-number"), createContactForm = contactForm.querySelector("form"), formBack = document.querySelector(".form-back"), save = document.querySelector(".save"), cancelTimeOut, back;
+let contactsView = document.querySelector(".contacts-view"), contactPlate = document.querySelector(".contact-plate"), dailpadUp = document.querySelector(".up"), dailpadDown = document.querySelector(".down"), dail = document.querySelector(".dail"), dailDisplay = document.querySelector(".dail-display"), dailButtons = document.querySelectorAll(".dail-digit"), cancel = document.querySelector(".cancel"), load = document.querySelector(".load"), app = document.querySelector(".app"), contactsTab = document.querySelector(".contacts-tab"), favoritesTab = document.querySelector(".favorites-tab"), favorites = document.querySelector(".favorites"), search = document.querySelector(".search"), searchView = document.querySelector(".search-view"), options = document.querySelector(".options"), searchIcon = document.querySelector(".search-icon"), contacts, views = [contactsView, favorites], template = document.querySelector(".contact-plate"), favoriteTemplate = document.querySelector(".favorites-card"), contactForm = document.querySelector(".create-contact-form"), newContactName = document.querySelector(".new-contact-name"), numbers = contactForm.querySelector(".numbers"), numberFieldTemp = document.querySelector(".phone-number"), numberFields = document.querySelectorAll(".phone-number"), createContactForm = contactForm.querySelector("form"), formBack = document.querySelector(".form-back"), save = document.querySelector(".save"), bottomBar = document.querySelector(".bottom-bar"), dailSearch= document.querySelector(".dail-search"), cancelTimeOut, back;
 if (localStorage.getItem("contacts") == null) {
     localStorage.setItem("contacts", JSON.stringify([]));
 }
@@ -19,14 +19,28 @@ dailpadUp.addEventListener("click", () => {
     fade(dailpadUp);
     setTimeout(() => {
         dailpadUp.style.display = "none";
+        bottomBar.style.background = "#ffffff00";
+        bottomBar.style.gridTemplateRows = "1fr";
+        bottomBar.style.height = "60px";
         dailTransition();
-    }, 100);
+        if (dailSearch.style.display != "") {
+            setTimeout(() => {
+                bottomBar.style.zIndex = "2";
+            }, 250)
+        }
+    }, 250);
 });
 
 dailpadDown.addEventListener("click", () => {
     dailTransition();
+    if (dailSearch.style.display != "") {
+        bottomBar.style.zIndex = "";
+    }
+    bottomBar.style.gridTemplateRows = "";
+    bottomBar.style.height = "";
     setTimeout(() => {
         dailpadUp.style.display = "block";
+        bottomBar.style.background = "";
         fade(dailpadUp);
     }, 250);
 });
@@ -39,9 +53,18 @@ dailDisplay.addEventListener("focus", event => {
 dailButtons.forEach(button => {
     button.addEventListener("click", event => {
         event.preventDefault();
+        ripple(event);
         dailDisplay.value += button.textContent;
-        if (dailDisplay.value != "") numberSearch();
-        else {
+        if (dailDisplay.value != "") {
+            numberSearch();
+            dailDisplay.classList.remove("invisible")
+            dailButtons[0].parentElement.parentElement.style.zIndex = "5";
+            bottomBar.style.zIndex = "6";
+            setTimeout(() => {
+                dailSearch.style.display = "";
+            }, 100);
+        } else {
+            dailSearch.style.display = "none";
             removeContactsInView(contactsView);
             displayContacts();
         }
@@ -49,12 +72,17 @@ dailButtons.forEach(button => {
 });
 
 if (navigator.maxTouchPoints > 1) {
-    cancel.addEventListener("touchstart", (event) => {
+    cancel.addEventListener("touchstart", () => {
         let values = dailDisplay.value.split("");
         values.pop();
         dailDisplay.value = values.join("");
-        if (dailDisplay.value != "") numberSearch();
-        else {
+        if (dailDisplay.value != "") {
+            numberSearch();
+            dailSearch.style.display = "";
+        } else {
+            dailSearch.style.display = "none";
+            dailButtons[0].parentElement.parentElement.style.zIndex = "";
+            bottomBar.style.zIndex = "";
             removeContactsInView(contactsView);
             displayContacts();
         }
@@ -71,8 +99,13 @@ if (navigator.maxTouchPoints > 1) {
         let values = dailDisplay.value.split("");
         values.pop();
         dailDisplay.value = values.join("");
-        if (dailDisplay.value != "") numberSearch();
-        else {
+        if (dailDisplay.value != "") {
+            numberSearch();
+            dailSearch.style.display = "";
+        } else {
+            dailSearch.style.display = "none";
+            dailButtons[0].parentElement.parentElement.style.zIndex = "";
+            bottomBar.style.zIndex = "";
             removeContactsInView(contactsView);
             displayContacts();
         }
@@ -86,56 +119,63 @@ if (navigator.maxTouchPoints > 1) {
     });
 }
 
-contactsTab.addEventListener("click", () => {
+contactsTab.addEventListener("click", e => {
     if (contactsTab.classList.contains("active") && !contactsTab.classList.contains("invisible")) {
         return;
     } else {
+        ripple(e);
         favorites.style.zIndex = "2";
         contactsTab.classList.add("active");
-        contactsView.classList.remove("invisible");
+        contactsView.style.display = "";
         contactsView.classList.remove("opened");
         favoritesTab.classList.remove("active");
         favorites.classList.add("opened");
-        setTimeout(() => favorites.classList.add("invisible"), 500);
+        setTimeout(() => favorites.style.display  = "none", 500);
         displayContacts();
     }
 });
 
-favoritesTab.addEventListener("click", () => {
+favoritesTab.addEventListener("click", e => {
     if (favoritesTab.classList.contains("active") && !favoritesTab.classList.contains("invisible")) {
         return;
     } else {
+        ripple(e);
         favorites.style.zIndex = "";
         favoritesTab.classList.add("active");
-        favorites.classList.remove("invisible");
+        favorites.style.display = "";
         favorites.classList.remove("opened");
         contactsTab.classList.remove("active");
         contactsView.classList.add("opened");
-        setTimeout(() => contactsView.classList.add("invisible"), 500);
+        setTimeout(() => contactsView.style.display = "none", 500);
         displayFavorites();
     }
 });
 
 search.addEventListener("click", () => {
-    let active
+    let active;
     search.focus();
-    search.style.width = "85.4%";
+    search.style.gridColumn = "2 / 4";
+    document.body.childNodes[3].childNodes[1].style.zIndex = "4";
+    searchView.style.zIndex = "4";
     options.style.width = "0%";
     options.style.display = "none";
     searchIcon.childNodes[0].classList.remove("fa-magnifying-glass");
     searchIcon.childNodes[0].classList.add("fa-arrow-left");
     searchView.classList.remove("invisible");
     views.forEach((view) => {
-        if (!view.classList.contains("invisible")) active = view
+        if (!view.classList.contains("invisible")) active = view;
         view.classList.add("invisible");
     });
     searchIcon.addEventListener("click", () => {
         search.blur();
-        search.style.width = "73.1%";
+        search.style.width = "";
         search.value = "";
+        document.body.childNodes[3].childNodes[1].style.zIndex = "";
+        searchView.style.zIndex = "";
         setTimeout(() => {
-            options.style.width = "12.5%";
-            options.style.display = "block";
+            options.style.width = "";
+            options.style.display = "";
+            search.style.gridColumn = "2 / 3";
         }, 100);
         searchView.classList.add("invisible");
         searchView.childNodes.forEach((child) => {
@@ -189,7 +229,7 @@ function textSearch() {
         contactNode.classList.add("contactS")
         let contactHead = document.createElement("h4");
         let contactSub = document.createElement("p");
-        contactHead.textContent = result.name;
+        contactHead.textContent = result.name.length > 35 ? `${result.name.slice(0, 35)}...` : result.name;
         let numbers = `Number${result.phoneNumbers.length > 1 ? "s" : ""}: ` + result.phoneNumbers.join(" ");
         contactSub.textContent = numbers;
         contactNode.appendChild(contactHead);
@@ -281,13 +321,15 @@ function numberSearch() {
     let resultNodes = [];
     for (let result of results) {
         let resultNode = createContactPlate(result);
-        resultNode.childNodes[1].textContent = result.name;
         resultNode.addEventListener("click", () => {
             contactCard(contacts.indexOf(result));
+            dailSearch.style.display = "none";
+            dailButtons[0].parentElement.parentElement.style.zIndex = "";
+            bottomBar.style.zIndex = "";
         });
         resultNodes.push(resultNode);
     }
-    resultNodes.forEach(resultNode => contactsView.appendChild(resultNode));
+    resultNodes.forEach(resultNode => dailSearch.appendChild(resultNode));
     contactsView.appendChild(createContactBtn());
 }
 
@@ -299,7 +341,10 @@ function displayContacts() {
         let node = createContactPlate(contact);
         contactsView.appendChild(node);
     });
-    contactsView.childNodes.forEach(child => child != contactCreate ? child.addEventListener("click", () => {contactCard(Number(child.attributes["data-index"].value))}) : "");
+    contactsView.childNodes.forEach(child => child != contactCreate ? child.addEventListener("click", e => {
+        ripple(e);
+        contactCard(Number(child.attributes["data-index"].value));
+    }) : "");
 }
 
 function removeContactsInView(view) {
@@ -364,7 +409,7 @@ function initialiseCreateContact(contact=null) {
 
     function createNumberField(number=null) {
         let newNumberField = document.createElement("input");
-        newNumberField.type = "number";
+        newNumberField.type = "tel";
         newNumberField.name = "phone-number";
         newNumberField.placeholder = "Phone Number";
         numberFields[numberFields.length - 1].required = true;
@@ -399,16 +444,18 @@ function initialiseCreateContact(contact=null) {
             contact ? contacts[contacts.indexOf(contact)] = newContact : contacts.push(newContact);
             contacts.sort((a, b) => a.name[0] > b.name[0] ? 1 : -1);
             localStorage.setItem("contacts", JSON.stringify(contacts));
-            formBackClick();
+            formBackClick(event);
         }
     }
 
-    function formBackClick() {
+    function formBackClick(event) {
+        event.preventDefault();
         newContactName.value = "";
         numberFields.forEach(numberField => numberField.value = "");
         formBack.removeEventListener("click", formBackClick);
         save.removeEventListener("click", saveEvent);
         contactForm.classList.add("opened");
+        checkNum();
         setTimeout(() => contactForm.classList.add("invisible"), 500);
         displayContacts();
         displayFavorites();
@@ -443,7 +490,7 @@ function createContactPlate(contact) {
     contactIcon.classList.add("contact-icon");
     contactIcon.appendChild(icon);
     textContent.classList.add("contact-name");
-    textContent.textContent = contact.name;
+    textContent.textContent = contact.name.length > 35 ? `${contact.name.slice(0, 35)}...` : contact.name;
     contactPlate.classList.add("contact-plate");
     contactPlate.appendChild(contactIcon);
     contactPlate.appendChild(textContent);
@@ -456,10 +503,9 @@ function createFavoriteCard(contact) {
     let icon = document.createElement("i");
     let textContent = document.createElement("p");
     icon.classList.add("fa-solid", "fa-user", "fa-3x");
-    textContent.textContent = contact.name;
+    textContent.textContent = contact.name.length > 15 ? `${contact.name.slice(0, 15)}...` : contact.name;
     favoriteCard.classList.add("favorites-card");
     favoriteCard.appendChild(icon);
-    favoriteCard.appendChild(document.createElement("br"));
     favoriteCard.appendChild(textContent);
     return favoriteCard;
 }
@@ -470,11 +516,18 @@ function contactEdit(index) {
 }
 
 function resetApp() {
-    let response = prompt("To reset the app, enter \"Y\", otherwise leave blank or enter anything :)");
+    let response = prompt("To reset the app, enter \"Y\", otherwise leave blank or enter anything 😁");
     if (response == "Y") {
         contacts = [];
         localStorage.setItem("contacts", JSON.stringify(contacts));
         displayContacts();
         displayFavorites();
     }
+}
+
+function ripple(e) {
+    let ripple = document.createElement("div");
+    ripple.classList.add("ripple");
+    e.target.appendChild(ripple);
+    setTimeout(() => ripple.remove(), 500);
 }
