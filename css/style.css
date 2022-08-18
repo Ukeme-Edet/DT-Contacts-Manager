@@ -578,6 +578,10 @@ padding-top: 25px;
     animation: ripple 500ms ease-out 0s infinite;
 }
 
+.bounce-animation {
+    animation: bounce-animation .5s ease-out 0s 1;
+}
+
 @keyframes ripple {
     0% {
         width: 0;
@@ -588,6 +592,18 @@ padding-top: 25px;
         width: 500px;
         height: 500px;
         opacity: 0;
+    }
+}
+
+@keyframes bounce-animation {
+    0% {
+        transform: scale(1);
+    }
+    50% {
+        transform: scale(0.8);
+    }
+    100% {
+        transform: scale(1);
     }
 }
 

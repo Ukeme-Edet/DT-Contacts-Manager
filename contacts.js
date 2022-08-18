@@ -298,7 +298,7 @@ function contactCard(index) {
     contactDisplay.appendChild(bottom);
     contactDisplay.classList.add("opened");
     app.appendChild(contactDisplay);
-    setTimeout(() => contactDisplay.classList.remove("opened"), .1);
+    setTimeout(() => contactDisplay.classList.remove("opened"), 250);
 
     function backClick() {
         contactDisplay.classList.add("opened");
@@ -343,6 +343,7 @@ function displayContacts() {
     });
     contactsView.childNodes.forEach(child => child != contactCreate ? child.addEventListener("click", e => {
         ripple(e);
+        bounce(Number(child.attributes["data-index"].value));
         contactCard(Number(child.attributes["data-index"].value));
     }) : "");
 }
@@ -386,7 +387,6 @@ function initialiseCreateContact(contact=null) {
             let newNumber = createNumberField(number);
             numbers.childNodes.length == 5 ? numbers.childNodes[3].value = newNumber.value : numbers.appendChild(newNumber);
         }
-        checkNum()
         checkNumsFull();
     }
     setTimeout(() => contactForm.classList.remove("opened"), .1);
@@ -530,4 +530,11 @@ function ripple(e) {
     ripple.classList.add("ripple");
     e.target.appendChild(ripple);
     setTimeout(() => ripple.remove(), 500);
+}
+
+function bounce(index) {
+    contactsView.childNodes[index + 1].classList.add("bounce-animation");
+    setTimeout(() => {
+        contactsView.childNodes[index + 1].classList.remove("bounce-animation");
+    }, 500);
 }
