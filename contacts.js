@@ -329,8 +329,11 @@ function numberSearch() {
         });
         resultNodes.push(resultNode);
     }
+    for (let i = dailSearch.childElementCount - 1; i > -1; i--) {
+        dailSearch.childNodes[i].remove();
+    }
     resultNodes.forEach(resultNode => dailSearch.appendChild(resultNode));
-    contactsView.appendChild(createContactBtn());
+    dailSearch.appendChild(createContactBtn());
 }
 
 function displayContacts() {
